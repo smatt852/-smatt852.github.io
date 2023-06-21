@@ -4,203 +4,238 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
-      rel="stylesheet"
-    />
-    <script>
-      // preloads the images for smoother transitions
-      let picNum = 3;
-      for (let i = 1; i <= picNum; i++) {
-        let link = document.createElement("link");
-        link.setAttribute("rel", "preload");
-        link.setAttribute("href", `Images/Beau${i}.png`);
-        link.setAttribute("as", "image");
-        document.head.appendChild(link);
-      }
-    </script>
-    <title>Slideshow</title>
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet">
+    <title>Checklist</title>
     <style>
-      #container {
-        position: absolute;
-        top: 0;
-        bottom: 20vh;
-        left: 0;
-        right: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: white;
-        padding: 2vh;
+      * {
+        font-family: 'Bree Serif';
+        font-size: 1.9vw;
       }
-      #pic {
-        opacity: 0;
-        max-width: 100%;
-        max-height: 100%;
-      }
-      #frame {
-        text-align: center;
-        position: absolute;
-        bottom: 7vh;
-        left: 0;
-        right: 0;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        align-items: center;
-        padding: 1.3vh;
-      }
-      /* got the shadows and buttons from Free Frontend */
-      .niceShadow {
-        box-shadow: -7px -7px 20px 0px #fff9, -4px -4px 5px 0px #fff9,
-          7px 7px 20px 0px #0002, 4px 4px 5px 0px #0001,
-          inset 0px 0px 0px 0px #fff9, inset 0px 0px 0px 0px #0001,
-          inset 0px 0px 0px 0px #fff9, inset 0px 0px 0px 0px #0001;
-        transition: box-shadow 0.6s cubic-bezier(0.79, 0.21, 0.06, 0.81);
-        border-radius: 10px;
-      }
-      .btnSize {
-        height: 9vh;
-        width: 9vh;
-      }
-      .btn {
-        border-radius: 3px;
-        background: #e0e5ec;
+      body {
+        height: 80vh;
         display: flex;
         flex-direction: column;
+        align-items: center;
+        background-color: #4f7b86;
+      }
+      .dateBox {
+        display: flex;
+        flex: 1;
         justify-content: center;
         align-items: center;
-        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-        -webkit-tap-highlight-color: transparent;
-        box-shadow: -7px -7px 20px 0px #fff9, -4px -4px 5px 0px #fff9,
-          7px 7px 20px 0px #0002, 4px 4px 5px 0px #0001;
-        transition: box-shadow 0.6s cubic-bezier(0.79, 0.21, 0.06, 0.81);
-        font-size: 5vh;
-        color: #666;
-        text-decoration: none;
-        border: none;
+        background-color: #6ba6b6;
+        color: white;
+        width: 12vw;
+        height: 3.5vw;
+        border-radius: 20%;
+         box-shadow: 10px 10px 10px black;
       }
-      .btn:hover,
-      .selected {
-        background: radial-gradient(circle, #0ff 0%, #e0e5ec 60%);
-        color: rgba(102, 102, 102, 0.5);
+      form {
+        display: flex;
+        flex:1;
+        flex-direction: row;
+        gap: 2vw;
       }
-      .btn:active {
-        box-shadow: 4px 4px 6px 0 rgba(255, 255, 255, 0.5),
-          -4px -4px 6px 0 rgba(116, 125, 136, 0.2),
-          inset -4px -4px 6px 0 rgba(255, 255, 255, 0.5),
-          inset 4px 4px 6px 0 rgba(116, 125, 136, 0.3);
+      fieldset {
+        display: block;
+        padding: 2vw;
+        box-shadow: 10px 10px 10px black;
+        border: 0vw;
+        border-radius: 5%;
+        background-color: #fff;
+        width: 25vw;
+      }
+      legend {
+        background-color: #6ba6b6;
+        color: white;
+        letter-spacing: 1.2vw;
+        border-radius: 10%;
+      }
+      input.check {
+        width: 2.5vw;
+        height: 2.5vw;
+      }
+      .saveBox {
+        display: flex;
+        flex: 1;
+        justify-content: center;
+        margin: 1vw;
+      }
+      input[type="submit"] {
+        flex:1;
+        display: flex;
+        background-color: #6ba6b6;
+        color: white;
+        border-radius: 20%;
+        width: 8vw;
+        height: 3.5vw;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 10px 10px 10px black;
+      }
+      input[type="number"] {
+        width: 4vw;
+        margin-right: 1vw;
+      }
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
       }
 
-      @keyframes fadeIn {
-        0% {
-          opacity: 0;
+      @media only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) {
+        * {
+          font-size: 6vw;
         }
-        100% {
-          opacity: 1;
+        body {
+          height: 80vh;
+          gap: 5vw;
         }
-      }
-      .fadeIn {
-        animation: fadeIn 3s forwards;
-      }
-      @media only screen and (max-width: 380px) {
-        .btnSize {
-          height: 15vh;
-          width: 15vh;
+        .dateBox {
+          width: 37vw;
+          height: 12vw;
+        }
+        form {
+          flex-direction: column;
+          gap: 5vw;
+        }
+        fieldset {
+          padding: 3vw;
+          width: 60vw;
+        }
+        input.check {
+          width: 6vw;
+          height: 6vw;
+        }
+        input[type="submit"] {
+          height: 12vw;
+          width: 20vw;
+        }
+        input[type="number"] {
+          width: 4vw;
+          margin-right: 1vw;
+        }
+        .saveBox {
+          margin: 5vw;
         }
       }
     </style>
   </head>
-
   <body>
-    <div id="container" class="niceShadow">
-      <img id="pic" class="niceShadow" src="Images/Beau1.png" alt="image" />
+    <div class="saveBox">
+      <div id="dateBox" class="dateBox"></div>
     </div>
-    <div id="frame" class="niceShadow">
-      <button class="btn btnSize" onclick="backward()">
-        <i class="fas fa-backward"></i>
-      </button>
-      <button class="btn btnSize" name="numBtn" id="1" onclick="selectPic(1)">
-        1
-      </button>
-      <button class="btn btnSize" name="numBtn" id="2" onclick="selectPic(2)">
-        2
-      </button>
-      <button class="btn btnSize" name="numBtn" id="3" onclick="selectPic(3)">
-        3
-      </button>
-      <button class="btn btnSize" onclick="forward()">
-        <i class="fas fa-forward"></i>
-      </button>
-    </div>
+
+    <form>
+        
+      <fieldset>
+        <legend>&nbsp;food</legend>
+        <div>
+          <label for="b"> <input type="checkbox" class="check" id="b" />blueberries </label>
+        </div>
+        <div>
+          <label for="a"> <input type="checkbox" class="check" id="a" />apple </label>
+        </div>
+        <div>
+          <label for="w"> <input type="checkbox" class="check" id="w" />walnuts </label>
+        </div>
+        <div>
+          <label for="br"> <input type="checkbox" class="check" id="br" />broccoli </label>
+        </div>
+        <div>
+          <label for="s"> <input type="checkbox" class="check" id="s" />spinach </label>
+        </div>
+        <div>
+          <label for="m"> <input type="checkbox" class="check" id="m" />matcha </label>
+        </div>
+        <div>
+          <label for="water">
+            <input id="water" type="number" />jugs of water
+          </label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>&nbsp;activities</legend>
+        <div>
+          <label for="p"> <input type="checkbox" class="check" id="p" />painting </label>
+        </div>
+        <div>
+          <label for="r"> <input type="checkbox" class="check" id="r" />reading </label>
+        </div>
+        <div>
+          <label for="pr">
+            <input type="checkbox" class="check" id="pr" />programming
+          </label>
+        </div>
+      </fieldset>
+
+    </form>
+      
+    <div class="saveBox">
+      <input type="submit" value="save" onclick="storeRecord()"/></div>
+      </div>
   </body>
-  <script>
-    let pic = document.getElementById("pic");
-    let i = 1;
-    let direction = "forward";
 
-    // when the img url changes, the fade in happens
-    pic.addEventListener("load", () => {
-      void pic.offsetHeight; // I don't know what this does but it makes the transition work
-      pic.classList.add("fadeIn");
-    });
+<script>
+// adds a zero to the day if needed
+function pad (str, max) {
+  str = str.toString();
+  return str.length < max ? pad("0" + str, max) : str;
+}
+  
+// puts the current date at the top and returns the date as a string
+function displayDate() {
+  let month=["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
+  let d = new Date();
+  let dd = d.getDate();
+  dd = pad(dd, 2)
+  let mm = d.getMonth();
+  let yyyy = d.getFullYear();
+  let date = dd + "-" + month[mm] + "-" + yyyy;
+  let dateBox = document.getElementById('dateBox');
+  dateBox.textContent = date;
+  return date;
+}
+  
+displayDate();
 
-    // change variables when buttons are clicked to change direction or select a pic
-    function forward() {
-      direction = "forward";
+// stores the record of the day in local storage
+function storeRecord() {
+  let br = document.getElementById('br');
+  let a = document.getElementById('a');
+  let w = document.getElementById('w');
+  let b = document.getElementById('b');
+  let s = document.getElementById('s');
+  let m = document.getElementById('m');
+  let water = document.getElementById('water');
+  let pr = document.getElementById('pr');
+  let r = document.getElementById('r');
+  let p = document.getElementById('p');
+
+  let record = [{
+  date: displayDate(),
+  broccoli: br.checked,
+  apples: a.checked,
+  walnuts: w.checked,
+  blueberries: b.checked,
+  spinach: s.checked,
+  matcha: m.checked,
+  water: water.value,
+  programming: pr.checked,
+  reading: r.checked,
+  painting: p.checked
+  }]
+
+  localStorage.setItem("record", JSON.stringify(record));
+}
+
+// retrieves the records from local storage
+function getRecord() {
+      const record = JSON.parse(localStorage.getItem("record")) || [];
+      return record;
     }
-    function backward() {
-      direction = "backward";
-    }
-    function selectPic(num) {
-      i = num;
-      direction = "neither";
-    }
-
-    function display() {
-      // manage the scrolling behaviour
-      if (direction === "backward") {
-        i--;
-        if (i < 1) {
-          i = picNum;
-        }
-      }
-      if (direction === "forward") {
-        i++;
-        if (i > picNum) {
-          i = 1;
-        }
-      }
-      // if a number button is clicked the pic is loaded and scrolling stops
-      if (direction === "neither") {
-        btnLight();
-        pic.src = `Images/Beau${i}.png`;
-        clearInterval(start);
-      }
-
-      pic.classList.remove("fadeIn");
-      pic.src = `Images/Beau${i}.png`;
-      btnLight();
-    }
-
-    // light up the current image number button
-    function btnLight() {
-      let selPic = document.getElementById(i);
-      let otherPic = document.getElementsByName("numBtn");
-      otherPic.forEach((element) => {
-        element.classList.remove("selected");
-      });
-      selPic.classList.add("selected");
-    }
-
-    // call display() every 5s
-    function scrolly() {
-      let start = setInterval(function () {
-        display();
-      }, 5000);
-    }
-
-    scrolly();
-  </script>
+</script>
 </html>
