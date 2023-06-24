@@ -2,237 +2,63 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet">
-    <title>Checklist</title>
+    <title>Document</title>
     <style>
-      * {
-        font-family: 'Bree Serif';
-        font-size: 1.9vw;
-      }
       body {
-        height: 80vh;
+        height: 90vh;
         display: flex;
         flex-direction: column;
         align-items: center;
-        background-color: #4f7b86;
       }
-      .dateBox {
+      .imgDiv {
+        display: flex;
+        flex: 10;
+        align-items: center;
+        justify-content: center;
+      }
+      .buttonDiv {
         display: flex;
         flex: 1;
-        justify-content: center;
-        align-items: center;
-        background-color: #6ba6b6;
-        color: white;
-        width: 12vw;
-        height: 3.5vw;
-        border-radius: 20%;
-         box-shadow: 10px 10px 10px black;
-      }
-      form {
-        display: flex;
-        flex:1;
         flex-direction: row;
-        gap: 2vw;
-      }
-      fieldset {
-        display: block;
-        padding: 2vw;
-        box-shadow: 10px 10px 10px black;
-        border: 0vw;
-        border-radius: 5%;
-        background-color: #fff;
-        width: 25vw;
-      }
-      legend {
-        background-color: #6ba6b6;
-        color: white;
-        letter-spacing: 1.2vw;
-        border-radius: 10%;
-      }
-      input.check {
-        width: 2.5vw;
-        height: 2.5vw;
-      }
-      .saveBox {
-        display: flex;
-        flex: 1;
-        justify-content: center;
-        margin: 1vw;
-      }
-      input[type="submit"] {
-        flex:1;
-        display: flex;
-        background-color: #6ba6b6;
-        color: white;
-        border-radius: 20%;
-        width: 8vw;
-        height: 3.5vw;
-        justify-content: center;
-        align-items: center;
-        box-shadow: 10px 10px 10px black;
-      }
-      input[type="number"] {
-        width: 4vw;
-        margin-right: 1vw;
-      }
-      input::-webkit-outer-spin-button,
-      input::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-      }
-
-      @media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) {
-        * {
-          font-size: 6vw;
-        }
-        body {
-          height: 75vh;
-        }
-        .dateBox {
-          width: 37vw;
-          height: 12vw;
-        }
-        form {
-          flex-direction: column;
-          gap: 5vw;
-          margin-bottom: 4vw;
-          margin-top: 4vw;
-        }
-        fieldset {
-          width: 60vw;
-        }
-        input.check {
-          width: 6vw;
-          height: 6vw;
-        }
-        input[type="submit"] {
-          height: 10vw;
-          width: 20vw;
-        }
-        input[type="number"] {
-          width: 4vw;
-          margin-right: 1vw;
-        }
       }
     </style>
   </head>
   <body>
-    <div class="saveBox">
-      <div id="dateBox" class="dateBox"></div>
+    <div class="imgDiv">
+      <img src="#" />
+    </div>
+    <div class="buttonDiv">
+      <input
+        type="text"
+        id="q"
+        name="q"
+        placeholder="Search"
+        value="cavalier"
+      />
+      <button onclick="searchGifs()">Search</button>
     </div>
 
-    <form>
-        
-      <fieldset>
-        <legend>&nbsp;food</legend>
-        <div>
-          <label for="b"> <input type="checkbox" class="check" id="b" />blueberries </label>
-        </div>
-        <div>
-          <label for="a"> <input type="checkbox" class="check" id="a" />apple </label>
-        </div>
-        <div>
-          <label for="w"> <input type="checkbox" class="check" id="w" />walnuts </label>
-        </div>
-        <div>
-          <label for="br"> <input type="checkbox" class="check" id="br" />broccoli </label>
-        </div>
-        <div>
-          <label for="s"> <input type="checkbox" class="check" id="s" />spinach </label>
-        </div>
-        <div>
-          <label for="m"> <input type="checkbox" class="check" id="m" />matcha </label>
-        </div>
-        <div>
-          <label for="water">
-            <input id="water" type="number" />jugs of water
-          </label>
-        </div>
-      </fieldset>
+    <script>
+      function searchGifs() {
+        const img = document.querySelector("img");
+        const q = document.getElementById("q");
+        let url1 = `https://api.giphy.com/v1/gifs/translate?api_key=qTYfz57g8oNn3ot2rMrI7jkYJsHRybFo&s=${q.value}`;
+        console.log(url1);
+        fetch(url1, { mode: "cors" })
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (response) {
+            img.src = response.data.images.original.url;
+          })
+          .catch(function (err) {
+            alert("Try again");
+          });
+      }
 
-      <fieldset>
-        <legend>&nbsp;activities</legend>
-        <div>
-          <label for="p"> <input type="checkbox" class="check" id="p" />painting </label>
-        </div>
-        <div>
-          <label for="r"> <input type="checkbox" class="check" id="r" />reading </label>
-        </div>
-        <div>
-          <label for="pr">
-            <input type="checkbox" class="check" id="pr" />programming
-          </label>
-        </div>
-      </fieldset>
-
-    </form>
-      
-    <div class="saveBox">
-      <input type="submit" value="save" onclick="storeRecord()"/></div>
-      </div>
+      window.onload = function () {
+        searchGifs();
+      };
+    </script>
   </body>
-
-<script>
-// adds a zero to the day if needed
-function pad (str, max) {
-  str = str.toString();
-  return str.length < max ? pad("0" + str, max) : str;
-}
-  
-// puts the current date at the top and returns the date as a string
-function displayDate() {
-  let month=["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
-  let d = new Date();
-  let dd = d.getDate();
-  dd = pad(dd, 2)
-  let mm = d.getMonth();
-  let yyyy = d.getFullYear();
-  let date = dd + "-" + month[mm] + "-" + yyyy;
-  let dateBox = document.getElementById('dateBox');
-  dateBox.textContent = date;
-  return date;
-}
-  
-displayDate();
-
-// stores the record of the day in local storage
-function storeRecord() {
-  let br = document.getElementById('br');
-  let a = document.getElementById('a');
-  let w = document.getElementById('w');
-  let b = document.getElementById('b');
-  let s = document.getElementById('s');
-  let m = document.getElementById('m');
-  let water = document.getElementById('water');
-  let pr = document.getElementById('pr');
-  let r = document.getElementById('r');
-  let p = document.getElementById('p');
-
-  let record = [{
-  date: displayDate(),
-  broccoli: br.checked,
-  apples: a.checked,
-  walnuts: w.checked,
-  blueberries: b.checked,
-  spinach: s.checked,
-  matcha: m.checked,
-  water: water.value,
-  programming: pr.checked,
-  reading: r.checked,
-  painting: p.checked
-  }]
-
-  localStorage.setItem("record", JSON.stringify(record));
-}
-
-// retrieves the records from local storage
-function getRecord() {
-      const record = JSON.parse(localStorage.getItem("record")) || [];
-      return record;
-    }
-</script>
 </html>
