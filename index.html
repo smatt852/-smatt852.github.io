@@ -68,7 +68,7 @@
       .humBox {
         grid-row: 4/5;
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 5vw 12vw;
       }
       .other1 {
         grid-column: 1/2;
@@ -104,12 +104,16 @@
         .container {
           grid-template-rows: 4fr 5fr 0.4fr;
           gap: 5vw;
+          height: 80vh;
         }
         .condition {
           font-size: 17vw;
         }
         .temp {
           font-size: 17vw;
+        }
+        .humBox {
+          grid-template-columns: 11vw 24vw;
         }
         .otherBox {
           grid-template-rows: 1fr 1fr 1fr;
@@ -216,7 +220,7 @@
           ).textContent = `${response.current.temp_f} F`;
           document.getElementById(
             "humidity"
-          ).textContent = `humidty ${response.current.humidity}`;
+          ).textContent = `humidty ${response.current.humidity} %`;
           document.getElementById(
             "feelsLike"
           ).textContent = `feels like  ${response.current.feelslike_c} C`;
