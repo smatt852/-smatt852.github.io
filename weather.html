@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Ysabeau+Infant&display=swap"
+      rel="stylesheet"
+    />
+    <title>Weather</title>
+    <style>
+      * {
+        font-family: "Ysabeau Infant";
+      }
+      body {
+        height: 100%;
+        background: rgba(0, 0, 255, 0.247);
+        background: -webkit-linear-gradient(white, rgba(0, 0, 255, 0.247), );
+        background: -moz-linear-gradient(white,rgba(0, 0, 255, 0.247));
+        background: linear-gradient(white,rgba(0, 0, 255, 0.247));
+      }
+      .container {
+        height: 80vh;
+        display: grid;
+        grid-template-rows: 1fr 1fr 1fr 0.3fr;
+        align-content: center;
+        justify-items: center;
+        margin: 2vw;
+        gap: 3vw;
+      }
+      .conditionBox {
+        display: grid;
+        grid-row: 1/2;
+        grid-template-rows: 1fr 0.7fr 0.7fr;
+        align-items: center;
+        justify-items: center;
+      }
+      .otherBox {
+        display: grid;
+        grid-row: 2/3;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        justify-items: center;
+        gap: 1vw;
+      }
+      .buttonBox {
+        display: grid;
+        grid-row: 4/5;
+        grid-template-columns: 1fr 1fr 1fr;
+        justify-items: left;
+        align-content: end;
+        gap: 1vw;
+      }
+      #wIcon {
+        grid-row: 1/2;
+        align-self: self-end;
+      }
+      .condition {
+        grid-row: 2/3;
+        font-size: 3vw;
+        font-family: "Caprasimo";
+        color: blue;
+        align-content: center;
+        justify-items: center;
+        text-align: center;
+      }
+      .temp {
+        grid-row: 3/4;
+        font-size: 3vw;
+        font-family: "Caprasimo";
+        color: blue;
+      }
+      .other1 {
+        grid-column: 1/2;
+        display: grid;
+        grid-template-rows: 1fr 1fr 1fr;
+        justify-items: right;
+      }
+      .other2 {
+        grid-column: 2/3;
+        display: grid;
+        grid-template-rows: 1fr 1fr 1fr;
+      }
+      .forecast {
+        grid-row: 3/4;
+        display: grid;
+        grid-template-columns: 6vw 6vw 8vw;
+        grid-template-rows: 2vw 5vw;
+        gap: 0vw;
+        align-content:end;
+      }
+      .forecastTitle {
+        grid-row: 1/2;
+        grid-column: 1/4;
+        color: blue;
+        font-size: 2vw;
+        font-family: 'Caprasimo';
+        text-align:center;
+      }
+      #forecast1 {
+        grid-row: 2/3;
+        grid-column: 1/2;
+        display: grid;
+        grid-template-rows: 1fr 1fr 1fr;
+      }
+      #forecast2 {
+        grid-row: 2/3;
+        grid-column: 2/3;
+        display: grid;
+        grid-template-rows: 1fr 1fr 1fr;
+      }
+      #forecast3 {
+        grid-row: 2/3;
+        grid-column: 3/4;
+        display: grid;
+        grid-template-rows: 1fr 1fr 1fr;
+      }
+      input {
+        grid-column: 2/3;
+        font-size: 2vw;
+        width: 25vw;
+        border-radius: 30px;
+        text-align: center;
+      }
+      button {
+        grid-column: 3/4;
+        background-color: rgba(0, 0, 255, 0.247);
+        font-size: 2vw;
+        align-self: left;
+        width: 40%;
+        border-radius: 30px;
+        border: none;
+        box-shadow: 5px 5px 5px blue;
+      }
+
+      @media only screen and (device-width: 396px) and (device-height: 427px) {
+        * {
+          margin: 0;
+          padding: 0;
+        }
+        .container {
+          height: 100vh;
+          grid-template-rows: 0.7fr 1fr 1fr 1fr;
+          margin: 0;
+          margin-top: 5vw;
+          gap: 1vw;
+        }
+        .conditionBox {
+          grid-template-rows: 0.7fr 1.5fr 0.4fr;
+        }
+        .condition {
+          font-size: 5vw;
+        }
+        .temp {
+          font-size: 5vw;
+        }
+        .forecast {
+          grid-template-columns: 21vw 12vw 30vw;
+          grid-template-rows: 5vw 10vw;
+          align-self:first baseline;
+          
+        }
+        .forecastTitle {
+        font-size: 4vw;
+      }
+      #forecast3 {
+        justify-items: center;
+        align-items: center;
+      }
+        input {
+          grid-row: none;
+          grid-column: 1/2;
+          font-size: 5vw;
+          width: 100%;
+        }
+        button {
+          grid-row: none;
+          grid-column: 2/3;
+          font-size: 4vw;
+          width: 100%;
+        }
+        .buttonBox {
+          gap: 1vw;
+          grid-template-columns: 1fr 0.5fr;
+          justify-items: center;
+          padding-bottom: 3vw;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container" class="container">
+      <div class="conditionBox">
+        <div class="condition" id="condition"></div>
+        <img id="wIcon" src="#" />
+        <div class="temp" id="temp"></div>
+      </div>
+      <div class="otherBox">
+        <div class="other1" id="other1">
+          <div class="fahrenheit" id="fahrenheit"></div>
+          <div class="humidity" id="humidity"></div>
+          <div class="chanceRain" id="chanceRain"></div>
+        </div>
+        <div class="other2" id="other2">
+          <div class="precip" id="precip"></div>
+          <div class="feelsLike" id="feelsLike"></div>
+          <div class="wind" id="wind"></div>
+        </div>
+      </div>
+      <div class="forecast" id="other3">
+        <div class="forecastTitle">FORECAST</div>
+        <div id="forecast1">
+          <div id="forecast">&nbsp</div>
+          <div id="tomorrow">tomorrow</div>
+          <div id="next day">next day</div>
+        </div>
+        <div id="forecast2">
+          <div id="tempForecast">temp</div>
+          <div id="tomorrowTemp"></div>
+          <div id="nextDayTemp"></div>
+        </div>
+        <div id="forecast3">
+          <div id="chanceRainForecast">chance of rain</div>
+          <div id="tomorrowChanceRain"></div>
+          <div id="nextDayChanceRain"></div>
+        </div>
+      </div>
+      <div class="buttonBox">
+        <input
+          type="text"
+          id="q"
+          name="q"
+          placeholder="Search"
+          value="Enfield"
+        />
+        <button onclick="weather()">Weather</button>
+      </div>
+    </div>
+  </body>
+  <script>
+    function weather() {
+      const q = document.getElementById("q");
+      let url1 = `https://api.weatherapi.com/v1/current.json?key=0864bf6ac71c4592b00120411232506&q=${q.value}`;
+      fetch(url1, { mode: "cors" })
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (response) {
+          console.log(response);
+          document.getElementById("condition").textContent =
+            response.current.condition.text;
+          document.getElementById(
+            "wIcon"
+          ).src = `http:${response.current.condition.icon}`;
+          document.getElementById(
+            "temp"
+          ).textContent = `${response.current.temp_c} C`;
+          document.getElementById(
+            "fahrenheit"
+          ).textContent = `${response.current.temp_f} F`;
+          document.getElementById(
+            "humidity"
+          ).textContent = `humidty ${response.current.humidity} %`;
+          document.getElementById(
+            "feelsLike"
+          ).textContent = `feels like  ${response.current.feelslike_c} C`;
+          document.getElementById(
+            "precip"
+          ).textContent = `precip  ${response.current.precip_mm} mm`;
+          document.getElementById(
+            "wind"
+          ).textContent = `wind  ${response.current.wind_kph} km`;
+        })
+        .catch(function (err) {
+          alert("Try searching again");
+        });
+      let url3 = `https://api.weatherapi.com/v1/forecast.json?key=0864bf6ac71c4592b00120411232506&days=3&q=${q.value}`;
+      fetch(url3, { mode: "cors" })
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (response) {
+          console.log(
+            response.forecast.forecastday[1].day.daily_chance_of_rain
+          );
+          document.getElementById(
+            "chanceRain"
+          ).textContent = `chance of rain ${response.forecast.forecastday[0].day.daily_chance_of_rain} %`;
+          document.getElementById(
+            "tomorrowTemp"
+          ).textContent = `${response.forecast.forecastday[1].day.avgtemp_c} C`;
+          document.getElementById(
+            "nextDayTemp"
+          ).textContent = `${response.forecast.forecastday[2].day.avgtemp_c} C`;
+          document.getElementById(
+            "tomorrowChanceRain"
+          ).textContent = `${response.forecast.forecastday[1].day.daily_chance_of_rain} %`;
+          document.getElementById(
+            "nextDayChanceRain"
+          ).textContent = `${response.forecast.forecastday[2].day.daily_chance_of_rain} %`;
+        });
+    }
+    weather();
+  </script>
+</html>

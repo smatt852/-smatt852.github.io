@@ -1,0 +1,111 @@
+
+@font-face {
+    font-family: 'Bruno Ace SC';
+    src: url('./BrunoAceSC-Regular.ttf');
+  }
+
+  * {
+    font-family: 'Bruno Ace SC';
+    font-size: 2.5vw;
+}
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: url('./water.jpg');
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size:auto;
+    padding: 2vw;
+}
+#instructions {
+    padding: 20px;
+    max-width: 70vw;
+    border-radius: 30px;
+    background-color: #819baa65;
+    box-shadow: 10px 10px 10px #1e3c49;
+    border-top: 3px solid rgba(238, 238, 248, 0.973);
+    border-left: 3px solid rgba(238, 238, 248, 0.973);
+}
+#title {
+    margin-top: 5vh;
+    padding: 0;
+    font-size: 5vw;
+    text-align: center;
+}
+.square {
+    background-color: #819baa65;
+    border-bottom: #244958 solid 0.5px;
+    border-right: #244958 solid 0.5px;
+    border-top: 0.5px solid white;
+    border-left: 0.5px solid white;
+}
+.A, .B, .C, .D, .E {
+    margin: 0;
+    padding: 0;
+    border: 7px solid black;
+    color: black;
+}
+.shot {
+    margin: 0;
+    padding: 0;
+    border: red solid 7px;
+    color: red;
+}
+.hit {
+    margin: 0;
+    padding: 0;
+    background-color: red;
+    color: white
+}
+#board {
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 0;
+}
+#btns {
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: (1fr 1fr);
+    gap: 0;
+}
+.controls {
+    background-color: rgba(5, 5, 250, 0.212);
+    color: white;
+    border-bottom: #244857 solid 2px;
+    border-right: #244857 solid 2px;
+    border-top: 2px solid #5ab4db solid 2px;
+    border-left: 2px solid #5ab4db solid 2px;
+    height: 40px;
+}
+
+
+
+@media only screen and (device-width: 1366px) and (device-height: 665px) {
+
+* {
+    font-size: 1vw;
+}
+body {
+    background-position: 50% 0;
+    background-size: cover;
+    padding: 0;
+}
+#instructions {
+    position: absolute;
+    right: 5vw;
+    max-width: 20vw;
+}
+#title {
+    margin-top: 0vw;
+    font-size: 2vw;
+}
+.controls {
+    height: 35px;
+}
+}
