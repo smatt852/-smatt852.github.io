@@ -94,6 +94,7 @@ function makeNewTaskForm(index, edit) {
   const deadlineInput = document.createElement("input");
   deadlineInput.setAttribute("type", "date");
   deadlineInput.setAttribute("id", "deadline");
+  deadlineInput.setAttribute("autocomplete", "off");
   deadlineInput.setAttribute("placeholder", "Deadline");
   deadlineInput.classList.add("input");
   inputBox.appendChild(deadlineInput);
@@ -101,6 +102,7 @@ function makeNewTaskForm(index, edit) {
   const completeInput = document.createElement("select");
   completeInput.setAttribute("id", "complete");
   completeInput.classList.add("input");
+  completeInput.setAttribute("autocomplete", "off");
   completeInput.setAttribute("placeholder", "Complete or Not");
   const opt = ["not complete", "complete"];
   let options = "";
@@ -113,6 +115,7 @@ function makeNewTaskForm(index, edit) {
   const urgentInput = document.createElement("select");
   urgentInput.setAttribute("id", "urgent");
   urgentInput.classList.add("input");
+  urgentInput.setAttribute("autocomplete", "off");
   urgentInput.setAttribute("placeholder", "Urgent or Normal");
   const opt2 = ["normal", "urgent"];
   let options2 = "";
@@ -135,6 +138,7 @@ function makeNewTaskForm(index, edit) {
   const projectInput = document.createElement("select");
   projectInput.setAttribute("id", "project");
   projectInput.classList.add("input");
+  projectInput.setAttribute("autocomplete", "off");
   projectInput.setAttribute("placeholder", "Project");
   projectInput.innerHTML = "";
   // populate the dropdown list with the projects array
