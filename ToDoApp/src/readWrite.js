@@ -43,6 +43,7 @@ function saveTask(index, edit) {
   const urgent = document.getElementById("urgent").value;
   const project = document.getElementById("project").value;
   const taskList = getTasks();
+  taskList.sort(sortFunction);
   if (edit === true) {
     taskList[index].taskName = taskName;
     taskList[index].deadline = deadline;
