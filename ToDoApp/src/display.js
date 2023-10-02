@@ -49,7 +49,6 @@ function displayTasks() {
     editButton.innerHTML = "edit";
     editButton.onclick = function (element) {
       const num2 = this.parentElement.id;
-      console.log(num2);
       openEditForm(num2);
     };
 
