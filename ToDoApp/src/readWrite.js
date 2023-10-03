@@ -1,6 +1,9 @@
+/* eslint-disable space-before-function-paren */
+/* eslint-disable semi */
+/* eslint-disable quotes */
 // READWRITE.JS saves and recalls task and project arrays from local storage
 
-import { displayProjects } from "./display";
+import { displayProjects, sortFunction } from "./display";
 
 export {
   getTasks,
@@ -13,6 +16,7 @@ export {
 };
 
 // task constructor
+// eslint-disable-next-line space-before-function-paren
 function Task(taskName, deadline, details, complete, urgent, project) {
   this.taskName = taskName;
   this.deadline = deadline;

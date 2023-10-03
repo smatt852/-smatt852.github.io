@@ -9,7 +9,13 @@ import {
   storeProjects,
   removeDeletedProject,
 } from "./readWrite.js";
-export { displayTasks, makeNewTaskForm, displayProjects, displayTodayTasks };
+export {
+  displayTasks,
+  makeNewTaskForm,
+  displayProjects,
+  displayTodayTasks,
+  sortFunction,
+};
 
 // put tasks in date order
 function sortFunction(a, b) {
@@ -96,6 +102,7 @@ function makeNewTaskForm(index, edit) {
   deadlineInput.setAttribute("autocomplete", "off");
   deadlineInput.setAttribute("placeholder", "Deadline");
   deadlineInput.classList.add("input");
+  deadlineInput.classList.add("dateInput");
   inputBox.appendChild(deadlineInput);
 
   const completeInput = document.createElement("select");
@@ -251,6 +258,7 @@ function openEditForm(index) {
   makeNewTaskForm(index, edit);
   const taskList = getTasks();
   taskList.sort(sortFunction); // sort by date so index matches display form so that the item clicked on for editing matches the item in the edit form
+  // fill the form with th details of the task to be edited
   const objectToEdit = taskList[index];
   const taskNameInput = document.getElementById("taskName");
   taskNameInput.value = objectToEdit.taskName;
