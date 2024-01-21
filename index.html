@@ -10,7 +10,7 @@
       href="https://fonts.googleapis.com/css2?family=Michroma&display=swap"
       rel="stylesheet"
     />
-    <title>Selbu Mitten Pattern</title>
+    <title>Mitten Pattern</title>
     <style>
       * {
         font-family: "Michroma";
@@ -67,16 +67,12 @@
         display: flex;
         flex: 1;
         border: solid black 1px;
-        background-color: white;
-      }
-      .bor1 {
-        background-color: black;
-      }
-      .bor2 {
-        background-color: black;
       }
       .oob {
         background-color: rgb(172, 170, 170);
+      }
+      .black {
+        background-color: black;
       }
       h3 {
         font-size: 2vw;
@@ -86,8 +82,8 @@
       }
       button {
         font-size: 1vw;
-        height: 2vw;
-        width: 6vw;
+        height: 3.5vw;
+        width: 12vw;
         border-radius: 10%;
         border-color: rgba(165, 89, 3, 0.438);
         margin: 0.5vw;
@@ -101,6 +97,10 @@
     <div class="container1">
       <div class="bar" style="justify-content: center" id="titleBox"></div>
       <div class="bar" id="buttonBox" style="justify-content: center">
+        <button id="reset" onclick = "window.location.reload()">Reset</button>
+        <button id="black" onclick = "blackButt()" >Press and Drag for Black</button>
+        <button id="white" onclick = "whiteButt()">Press and Drag for White</button>
+        <button id="alt"onclick = "altButt()">Click to Alternate</button>
         <button onclick="window.print();">Print</button>
       </div>
     </div>
@@ -110,34 +110,44 @@
     </div>
   </body>
   <script>
-    function changeColor(e) {
-      let current = e.target.style.backgroundColor;
-      if (current === "white") {
-        e.target.style.backgroundColor = "black";
-      } else {
-        e.target.style.backgroundColor = "white";
-      }
-      return e.target.style.backgroundColor;
+
+    // Booleans to control the color changes
+    let oneColor = false;
+    let blackOn = true;
+    //whether mouse is pressed
+    let cOn = false; 
+    document.addEventListener('mousedown', function() {
+      cOn = true;
+    });
+    document.addEventListener('mouseup', function() {
+      cOn = false;
+    });
+    
+    //when buttons are clicked, booleans are set
+    function whiteButt () {
+      oneColor = true;
+      blackOn = false;
+    }
+    function blackButt () {
+      oneColor = true;
+      blackOn = true;
+    }
+    function altButt () {
+      oneColor = false;
     }
 
-    //reset button
-    let playButton = document.createElement("button");
-    playButton.setAttribute("id", "play");
-    playButton.setAttribute("onClick", "window.location.reload()");
-    playButton.textContent = "Reset";
-    buttonBox.appendChild(playButton);
-
+      
     //add title
     let userTitle = prompt("Enter the title", "Mittens");
     let title = document.createElement("h3");
     title.innerHTML = userTitle;
     titleBox.appendChild(title);
 
+    // makes the mitten and thumb grids
     function makeGrid(part, rowDim, colDim, borDim) {
       let patLength = Math.round((colDim - 2 * borDim) / 2);
       let border1 = borDim;
       let border2 = colDim - 2 * patLength - border1;
-
       let piece = document.getElementById(part);
       //make the rows
       let j = 0;
@@ -145,60 +155,67 @@
         let newRow = document.createElement("div");
         newRow.setAttribute("class", "row");
         //fill the rows with stitches
+        // first main pattern section
         i = 0;
         while (i <= patLength - 1) {
           let newSquare = document.createElement("div");
-          newSquare.setAttribute("class", "square");
+          newSquare.classList.add("square");
           newSquare.id = `${part}R${j}S${i}`;
           i++;
           newSquare.addEventListener("click", function (e) {
-            changeColor(e);
+            e.target.classList.toggle("black");
           });
           newRow.appendChild(newSquare);
         }
+        // first border
         let k = 0;
         while (k <= border1 - 1) {
           let bor1 = document.createElement("div");
           bor1.classList.add("square");
-          bor1.classList.add("bor1");
+          bor1.classList.add("black");
           bor1.id = `${part}R${j}S${patLength + k}`;
           k++;
           bor1.addEventListener("click", function (e) {
-            changeColor(e);
+            e.target.classList.toggle("black");
           });
           newRow.appendChild(bor1);
         }
+        //second main pattern section
         let n = 0;
         while (n <= patLength - 1) {
           let newSquare = document.createElement("div");
-          newSquare.setAttribute("class", "square");
+          newSquare.classList.add("square");
+          newSquare.classList.add("white");
           newSquare.id = `${part}R${j}S${patLength + k + n}`;
           n++;
           newSquare.addEventListener("click", function (e) {
-            changeColor(e);
+            e.target.classList.toggle("black");
           });
           newRow.appendChild(newSquare);
         }
+        //second border
         let m = 0;
         while (m <= border2 - 1) {
           let bor2 = document.createElement("div");
           bor2.classList.add("square");
-          bor2.classList.add("bor2");
+          bor2.classList.add("black");
           bor2.id = `${part}R${j}S${patLength + k + n + m}`;
           m++;
           bor2.addEventListener("click", function (e) {
-            changeColor(e);
+            e.target.classList.toggle("black");
           });
           newRow.appendChild(bor2);
         }
+        //add the row
         piece.appendChild(newRow);
         j++;
       }
       topTaper(part, patLength, border1);
     }
 
+
+    // grey out extra squares in the taper at top of mitten
     function topTaper(part, patLength, border1) {
-      // grey out extra squares in the taper at top of mitten
       // for odd pattern lengths
       if (patLength % 2 !== 0) {
         let q = 0;
@@ -207,11 +224,13 @@
           let r = 0;
           while (r <= Math.floor(patLength / 2) - 1 - q) {
             let oob = document.getElementById(`${part}R${q}S${r}`);
+            oob.classList.remove("white");
             oob.classList.add("oob");
             let oob2 = document.getElementById(
               `${part}R${q}S${r + patLength + border1}`
             );
             oob2.classList.add("oob");
+            oob2.classList.remove("white");
             r++;
           }
           //right side
@@ -219,10 +238,12 @@
           while (t > Math.floor(patLength / 2 + q)) {
             let oob = document.getElementById(`${part}R${q}S${t}`);
             oob.classList.add("oob");
+            oob.classList.remove("white");
             let oob2 = document.getElementById(
               `${part}R${q}S${t + patLength + border1}`
             );
             oob2.classList.add("oob");
+            oob2.classList.remove("white");
             t--;
           }
           q++;
@@ -236,10 +257,12 @@
           while (r < Math.round(patLength / 2) - 1 - q) {
             let oob = document.getElementById(`${part}R${q}S${r}`);
             oob.classList.add("oob");
+            oob.classList.remove("white");
             let oob2 = document.getElementById(
               `${part}R${q}S${r + patLength + border1}`
             );
             oob2.classList.add("oob");
+            oob2.classList.remove("white");
             r++;
           }
           // right side
@@ -247,10 +270,12 @@
           while (t > Math.round(patLength / 2 + q)) {
             let oob = document.getElementById(`${part}R${q}S${t}`);
             oob.classList.add("oob");
+            oob.classList.remove("white");
             let oob2 = document.getElementById(
               `${part}R${q}S${t + patLength + border1}`
             );
             oob2.classList.add("oob");
+            oob2.classList.remove("white");
             t--;
           }
           q++;
@@ -258,6 +283,7 @@
       }
     }
 
+    // the bottom of the thumb that is made before the thumb hole
     function thumbBottom(
       part,
       rowDim,
@@ -272,6 +298,7 @@
       let thumbBorder2 = thumbColDim / 2 - thumbBorder1;
       let p = 0;
       let q = rowDim - 1;
+      // the grey area not knit on either side of the bottom of the thumb
       let greyHeight = Math.ceil(rowDim / 4) - 3;
       while (q >= rowDim - 1 - greyHeight) {
         let i = 0;
@@ -283,10 +310,12 @@
               `${part}R${q}S${r - thumbEdgeDim}`
             );
             oob.classList.add("oob");
+            oob.classList.remove("white");
             let oob2 = document.getElementById(
               `${part}R${q}S${r - Math.floor(thumbColDim / 2) + greyWidth}`
             );
             oob2.classList.add("oob");
+            oob2.classList.remove("white");
             r--;
           }
           q--;
@@ -298,7 +327,7 @@
 
     //window reloads when reset is clicked and then makeGrid is called
     window.addEventListener("load", (event) => {
-      //get the grid dimensions from the user
+      //get the input from the user
       do {
         promptUser = prompt("Enter rows", "56");
         rowDim = parseInt(promptUser);
@@ -338,6 +367,28 @@
         thumbColDim,
         thumbEdgeDim
       );
+
+      //put a listener on the squares that will change the color appropriately
+      // based on which button is clicked (but not Click to Alternate which
+      // has a listener added when the squares are made in makeGrid()).
+      let sq = document.getElementsByClassName('square')
+      for(i = 0; i < sq.length; ++i) {
+        sq[i].addEventListener("mouseenter", function() {
+          if (oneColor === true) {
+            if (cOn === true){
+              if (blackOn === true) {
+                this.classList.add("black");
+              } else {
+                this.classList.remove("black");
+              }
+            }
+          }
+        });
+      }
     });
+
+
+
+  
   </script>
 </html>
